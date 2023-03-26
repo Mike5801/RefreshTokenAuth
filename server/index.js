@@ -9,6 +9,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import { fileURLToPath } from "url"
 import path from "path"
+import authRoutes from "./routes/authRoutes.js"
 
 const app = express()
 
@@ -41,6 +42,9 @@ app.use(morgan("common"))
 app.use(cors(corsOptions));
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.use(upload.single("image"))
+
+/* ROUTES CONFIGURATION */
+app.use("/auth", authRoutes)
 
 /* RUN SERVER */
 const PORT = process.env.PORT || 5001
