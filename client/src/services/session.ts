@@ -3,11 +3,13 @@ import { SignIn, SignUp } from "../interfaces/Auth"
 
 export const signUp = async (data: SignUp) => {
   try {
-    await publicClient({
+    const response = await publicClient({
       url: "auth/sign-up",
       method: "POST",
       data: data
     })
+
+    console.log(response)
 
   } catch (error) {
     console.log(error)
@@ -16,7 +18,7 @@ export const signUp = async (data: SignUp) => {
 
 export const signIn = async (data: SignIn) => {
   try {
-    const response = await publicClient({
+    const response: string | undefined = await publicClient({
       url: "auth/sign-in",
       method: "POST",
       data: data
@@ -24,7 +26,7 @@ export const signIn = async (data: SignIn) => {
 
     console.log(response)
 
-    // return response
+    return response
   } catch (error) {
     console.log(error)
   }
@@ -32,7 +34,7 @@ export const signIn = async (data: SignIn) => {
 
 export const getRefreshToken = async () => {
   try {
-    const response:string = await privateClient({
+    const response: string = await privateClient({
       url: "auth/refresh",
       method: "GET"
     })
