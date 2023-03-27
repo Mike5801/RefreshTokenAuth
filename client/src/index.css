@@ -8,4 +8,5 @@ body,
   width: 100%;
   height: 100%;
   font-family: "Rubik", sans-serif;
+  @apply bg-slate-600
 }
