@@ -1,5 +1,5 @@
 import { publicClient, privateClient } from "../api/axios"
-import { SignIn, SignUp } from "../interfaces/Auth"
+import { SignIn, SignUp, SessionResponse } from "../interfaces/Auth"
 
 export const signUp = async (data: SignUp) => {
   try {
@@ -18,7 +18,7 @@ export const signUp = async (data: SignUp) => {
 
 export const signIn = async (data: SignIn) => {
   try {
-    const response: string | undefined = await publicClient({
+    const response: SessionResponse = await publicClient({
       url: "auth/sign-in",
       method: "POST",
       data: data
@@ -32,9 +32,9 @@ export const signIn = async (data: SignIn) => {
   }
 }
 
-export const getRefreshToken = async () => {
+export const getNewToken = async () => {
   try {
-    const response: string = await privateClient({
+    const response: SessionResponse = await privateClient({
       url: "auth/refresh",
       method: "GET"
     })

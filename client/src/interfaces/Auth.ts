@@ -11,3 +11,7 @@ export interface SignUp {
   birthDate: Date;
   picture: string;
 }
+
+export type SessionResponse = {
+  token: string;
+}

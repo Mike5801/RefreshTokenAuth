@@ -60,3 +60,33 @@ export const signIn = async (req, res) => {
     res.status(400).json({ message: err.message })
   }
 }
+
+export const getToken = async (req, res) => {
+  try {
+    const refreshToken = req.cookies?.jwt
+    
+    const newAccessToken = jwt.verify(refreshToken, process.env.JWT_REFRESH,
+      async (err, decoded) => {
+        if (err) return res.status(401).json({ message: "Unauthorized" })
+
+        const { id } = decoded
+
+        const user = await User.findById(id)
+
+        const accessToken = jwt.sign({
+          user: user.user,
+          occupation: user.occupation,
+          picture: user.picture,
+          birthDate: user.birthDate
+        }, process.env.JWT_SECRET, { expiresIn: "10m" })
+
+        return accessToken
+      }  
+    )
+
+    res.status(200).json({ token: newAccessToken })
+
+  } catch (err) {
+    res.status(401).json({ message: err.message })
+  }
+}
