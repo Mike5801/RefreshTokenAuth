@@ -1,18 +1,15 @@
 import axios from "axios"
 import { setToken } from "../features/authSlice"
 import { useAppSelector, useAppDispatch } from "../hooks"
-import { getRefreshToken } from "../services/session"
-
-const token = useAppSelector((state) => state.auth.token)
-const dispatch = useAppDispatch()
+import { getNewToken } from "../services/session"
+import { SessionResponse } from "../interfaces/Auth"
 
 export const publicClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 })
 
 export const authClient = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  headers: { "Authorization": `Bearer ${token}` }
+  baseURL: import.meta.env.VITE_BASE_URL
 })
 
 authClient.interceptors.response.use(
@@ -21,8 +18,8 @@ authClient.interceptors.response.use(
     const { config } = error
     if (error.response.status === 403 && !config.retry) {
       config.retry = true
-      const newAccessToken: string | undefined  = await getRefreshToken()
-      dispatch(setToken(newAccessToken))
+      const newAccessToken: SessionResponse | undefined  = await getNewToken()
+      authClient.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`
       return authClient(config)
     }
     return error

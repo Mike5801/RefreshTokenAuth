@@ -9,7 +9,7 @@ export const signUp = async (data: SignUp) => {
       data: data
     })
 
-    console.log(response)
+    return response.data
 
   } catch (error) {
     console.log(error)
@@ -18,15 +18,13 @@ export const signUp = async (data: SignUp) => {
 
 export const signIn = async (data: SignIn) => {
   try {
-    const response: SessionResponse = await publicClient({
+    const response = await publicClient<SessionResponse>({
       url: "auth/sign-in",
       method: "POST",
       data: data
     })
 
-    console.log(response)
-
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
   }
@@ -34,14 +32,12 @@ export const signIn = async (data: SignIn) => {
 
 export const getNewToken = async () => {
   try {
-    const response: SessionResponse = await privateClient({
+    const response = await privateClient<SessionResponse>({
       url: "auth/refresh",
       method: "GET"
     })
 
-    console.log(response)
-
-    return response
+    return response.data
 
   } catch (error) {
     console.log(error)

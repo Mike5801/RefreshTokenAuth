@@ -4,6 +4,13 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import AuthLogo from "../../assets/auth.png"
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import jwt_decode from "jwt-decode"
+import { signIn, signUp } from '../../services/session'
+import { SignIn, SignUp } from '../../interfaces/Auth'
+import { useNavigate } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { setToken, setUser } from '../../features/authSlice'
+import { ReadUser } from '../../interfaces/User'
 
 interface FormInputs {
   user: string,
@@ -18,10 +25,50 @@ type Props = {}
 
 const LoginPage = (props: Props) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true)
+  const dispatch = useAppDispatch()
+  const token = useAppSelector((state) => state.auth.token) as string
+  const navigate = useNavigate()
   const methods = useForm<FormInputs>()
   const reset = methods.reset
-  const onSubmit: SubmitHandler<FormInputs> = (data: FormInputs) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
+    const { user, password, email, birthDate, occupation, picture } = data
+    const signInData: SignIn = {
+      user,
+      password,
+    }
+    const signUpData: SignUp = {
+      user,
+      password,
+      email: email as string,
+      birthDate: birthDate as Date,
+      occupation: occupation as string,
+      picture
+    }
+    
+    if (isSignIn) {
+      try {
+        const response = await signIn(signInData)
+        dispatch(setToken(response?.token))
+        
+        const userInfo: ReadUser = jwt_decode(token)
+
+        dispatch(setUser(userInfo))
+
+        navigate("/home")
+
+      } catch (err) {
+        console.log(err)
+      }
+      
+    } else {
+      try {
+        const response = await signUp(signUpData)  
+        console.log(response)
+
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   return (

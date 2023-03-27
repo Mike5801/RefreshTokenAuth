@@ -9,9 +9,9 @@ export interface SignUp {
   password: string;
   occupation: string;
   birthDate: Date;
-  picture: string;
+  picture: File | undefined;
 }
 
 export type SessionResponse = {
-  token: string;
+  token: string
 }
