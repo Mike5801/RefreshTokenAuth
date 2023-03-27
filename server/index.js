@@ -9,11 +9,13 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import { fileURLToPath } from "url"
 import path from "path"
+
+/* ROUTE IMPORTS */
 import authRoutes from "./routes/authRoutes.js"
 
-const app = express()
 
 /*  INITIAL CONFIGURATION FOR MIDDLEWARES */
+dotenv.config()
 const corsOptions = {
   origin: [process.env.ORIGIN],
   credentials: true
@@ -32,15 +34,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 /* CONFIGURATION OF MIDDLEWARES */
-dotenv.config()
-app.use(express.json)
+const app = express()
+app.use(express.json())
 app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(morgan("common"))
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors())
 app.use("/images", express.static(path.join(__dirname, "public/images")))
+
 app.use(upload.single("image"))
 
 /* ROUTES CONFIGURATION */
