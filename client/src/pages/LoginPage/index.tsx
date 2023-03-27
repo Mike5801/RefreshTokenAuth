@@ -4,13 +4,11 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import AuthLogo from "../../assets/auth.png"
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import jwt_decode from "jwt-decode"
 import { signIn, signUp } from '../../services/session'
 import { SignIn, SignUp } from '../../interfaces/Auth'
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from '../../hooks'
-import { setToken, setUser } from '../../features/authSlice'
-import { ReadUser } from '../../interfaces/User'
+import { useAppDispatch } from '../../hooks'
+import { setToken } from '../../features/authSlice'
 
 interface FormInputs {
   user: string,
@@ -26,7 +24,6 @@ type Props = {}
 const LoginPage = (props: Props) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true)
   const dispatch = useAppDispatch()
-  const token = useAppSelector((state) => state.auth.token) as string
   const navigate = useNavigate()
   const methods = useForm<FormInputs>()
   const reset = methods.reset
@@ -49,11 +46,6 @@ const LoginPage = (props: Props) => {
       try {
         const response = await signIn(signInData)
         dispatch(setToken(response?.token))
-        
-        const userInfo: ReadUser = jwt_decode(token)
-
-        dispatch(setUser(userInfo))
-
         navigate("/home")
 
       } catch (err) {
