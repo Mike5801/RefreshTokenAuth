@@ -18,7 +18,7 @@ interface FormInputs {
   password: string,
   occupation?: string,
   birthDate?: Date,
-  image?: File | undefined
+  image?: FileList | undefined
 }
 
 type Props = {}

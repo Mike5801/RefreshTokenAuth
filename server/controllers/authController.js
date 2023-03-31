@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken"
 
 export const signUp = async (req, res) => {
   try {
-    const { email, user, password, occupation, birthDate, picture } = req.body
+    const { email, user, password, occupation, birthDate } = req.body
+    const { filename } = req.file
 
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
@@ -15,7 +16,7 @@ export const signUp = async (req, res) => {
       user,
       password: passwordHash,
       occupation,
-      picture,
+      picture: filename,
       birthDate: date,
     })
 

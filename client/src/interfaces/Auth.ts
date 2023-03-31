@@ -9,7 +9,7 @@ export interface SignUp {
   password: string;
   occupation: string;
   birthDate: Date;
-  image: File | undefined;
+  image: FileList | undefined;
 }
 
 export type SessionResponse = {
