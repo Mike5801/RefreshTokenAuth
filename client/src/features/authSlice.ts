@@ -29,7 +29,7 @@ export const authSlice = createSlice({
     },
     setUser: (state, action: PayloadAction<ReadUser>) => {
       state.user = action.payload.user
-      state.picture = action.payload.picture
+      state.picture = action.payload.image
       state.occupation = action.payload.occupation
       state.birthDate = action.payload.birthDate
     }
@@ -37,8 +37,5 @@ export const authSlice = createSlice({
 })
 
 export const { setToken, logOut, setUser } = authSlice.actions
-
-export const selectCurrentUser = (state: RootState) => state.auth.user
-export const selectCurrentToken = (state: RootState) => state.auth.token
 
 export default authSlice.reducer

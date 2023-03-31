@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react'
-import jwt_decode from "jwt-decode"
-import { useAppSelector, useAppDispatch } from '../../hooks'
-import { ReadUser } from '../../interfaces/User'
-import { setUser } from '../../features/authSlice'
+import { useAppSelector } from '../../hooks'
 
 type Props = {}
 
 const HomePage = (props: Props) => {
-  const dispatch = useAppDispatch()
-  const token = useAppSelector((state) => state.auth.token) as string
-  const userInfo: ReadUser = jwt_decode(token)
-
-  useEffect(() => {
-    dispatch(setUser(userInfo))
-  }, [])
+  const user = useAppSelector((state) => state.auth.user)
+  const occupation = useAppSelector((state) => state.auth.occupation)
+  const picture = useAppSelector((state) => state.auth.picture)
+  const birthDate = useAppSelector((state) => state.auth.picture)
 
   return (
-    <div>HomePage</div>
+    <div>
+      <h1 className='text-xl font-bold'>Welcome back, { user }</h1>
+    </div>
   )
 }
 

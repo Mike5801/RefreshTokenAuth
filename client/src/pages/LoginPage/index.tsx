@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import AuthLogo from "../../assets/auth.png"
@@ -7,8 +6,11 @@ import Button from '../../components/Button'
 import { signIn, signUp } from '../../services/session'
 import { SignIn, SignUp } from '../../interfaces/Auth'
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch } from '../../hooks'
-import { setToken } from '../../features/authSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks'
+import { setToken, setUser } from '../../features/authSlice'
+import jwt_decode from "jwt-decode"
+import { ReadUser } from '../../interfaces/User'
+
 
 interface FormInputs {
   user: string,
@@ -16,7 +18,7 @@ interface FormInputs {
   password: string,
   occupation?: string,
   birthDate?: Date,
-  picture?: File | undefined
+  image?: File | undefined
 }
 
 type Props = {}
@@ -27,8 +29,9 @@ const LoginPage = (props: Props) => {
   const navigate = useNavigate()
   const methods = useForm<FormInputs>()
   const reset = methods.reset
+  const token = useAppSelector((state) => state.auth.token) as string
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
-    const { user, password, email, birthDate, occupation, picture } = data
+    const { user, password, email, birthDate, occupation, image } = data
     const signInData: SignIn = {
       user,
       password,
@@ -39,13 +42,16 @@ const LoginPage = (props: Props) => {
       email: email as string,
       birthDate: birthDate as Date,
       occupation: occupation as string,
-      picture
+      image
     }
     
     if (isSignIn) {
       try {
         const response = await signIn(signInData)
         dispatch(setToken(response?.token))
+        const userInfo: ReadUser = jwt_decode(token)
+        dispatch(setUser(userInfo))
+
         navigate("/home")
 
       } catch (err) {
@@ -72,6 +78,13 @@ const LoginPage = (props: Props) => {
         </div>
         <FormProvider {...methods}>
           <form className='relative flex flex-col justify-center items-center gap-3 px-6 overflow-y-auto w-full h-full' onSubmit={methods.handleSubmit(onSubmit)}>
+            {!isSignIn && <Input type='email' label='Email' placeholder='mike@test.com' name="email" required={true}/>}
+            <Input type='text' label='Username' placeholder='Mike' name="user" required={true}/>
+            <Input type='password' label='Password' placeholder='*****' name="password" required={true}/>
+            {!isSignIn && <Input type='text' label='Occupation' placeholder='Software Engineer' name="occupation" required={false}/>}
+            {!isSignIn && <Input type='date' label='Birth of Date' placeholder='' name="birthDate" required={false}/>}
+            {!isSignIn && <Input type='file' label='Profile picture' placeholder='' name="image" required={false}/>}
+            <Button text={ isSignIn ? "Sign In" : "Sign Up" }/>
             <button 
               className={`${ isSignIn ? "bg-slate-800 text-white py-[0.1rem] pointer-events-none" : "bg-slate-50 hover:bg-slate-200" } transition-all duration-100 ease-in absolute top-0 right-1/2 text-sm rounded-bl-md rounded-br-md px-2`}
               onClick={ () => { 
@@ -90,13 +103,6 @@ const LoginPage = (props: Props) => {
             >
               Sign Up
             </button>
-            {!isSignIn && <Input type='email' label='Email' placeholder='mike@test.com' name="email" required={true}/>}
-            <Input type='text' label='Username' placeholder='Mike' name="user" required={true}/>
-            <Input type='password' label='Password' placeholder='*****' name="password" required={true}/>
-            {!isSignIn && <Input type='text' label='Occupation' placeholder='Software Engineer' name="occupation" required={false}/>}
-            {!isSignIn && <Input type='date' label='Birth of Date' placeholder='' name="birthDate" required={false}/>}
-            {!isSignIn && <Input type='file' label='Profile picture' placeholder='' name="picture" required={false}/>}
-            <Button text={ isSignIn ? "Sign In" : "Sign Up" }/>
           </form>
         </FormProvider>
       </div>
