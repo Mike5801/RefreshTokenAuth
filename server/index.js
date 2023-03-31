@@ -17,7 +17,7 @@ import authRoutes from "./routes/authRoutes.js"
 /*  INITIAL CONFIGURATION FOR MIDDLEWARES */
 dotenv.config()
 const corsOptions = {
-  origin: true,
+  origin: [process.env.ORIGIN],
   credentials: true,
 }
 const __filename = fileURLToPath(import.meta.url)
