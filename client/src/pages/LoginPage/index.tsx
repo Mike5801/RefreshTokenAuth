@@ -73,7 +73,7 @@ const LoginPage = (props: Props) => {
 
   return (
     <div className='flex justify-center items-center w-full h-full'>
-      <div className='flex flex-col lg:w-[30%] h-[80%] w-[45%] bg-slate-300 rounded-lg overflow-hidden shadow-lg'>
+      <div className='flex flex-col h-[80%] w-[28rem] bg-slate-300 rounded-lg overflow-hidden shadow-lg'>
         <div className='flex justify-center items-center gap-1 bg-slate-50 h-16 border-b-2 border-b-slate-300'>
           <h1 className='text-lg font-semibold'>AuthApp</h1>
           <img className='w-9 h-9' src={ AuthLogo } alt="Logo" />
