@@ -51,6 +51,8 @@ const LoginPage = (props: Props) => {
         dispatch(setToken(response?.token))
         const userInfo: ReadUser = jwt_decode(token)
         dispatch(setUser(userInfo))
+        console.log(userInfo)
+        console.log(userInfo.birthDate)
 
         navigate("/home")
 

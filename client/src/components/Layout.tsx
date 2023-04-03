@@ -6,11 +6,9 @@ type Props = {}
 
 const Layout = (props: Props) => {
   return (
-    <div className='w-full h-full bg-slate-100'>
+    <div className='w-full h-full flex flex-col gap-6 bg-slate-100'>
       <Navbar />
-      <div className='p-6'>
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   )
 }

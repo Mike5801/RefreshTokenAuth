@@ -29,7 +29,7 @@ export const authSlice = createSlice({
     },
     setUser: (state, action: PayloadAction<ReadUser>) => {
       state.user = action.payload.user
-      state.picture = action.payload.image
+      state.picture = action.payload.picture
       state.occupation = action.payload.occupation
       state.birthDate = action.payload.birthDate
     }

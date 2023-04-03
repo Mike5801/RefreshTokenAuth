@@ -19,8 +19,8 @@ const NavbarItem = ({ title, navigation } : Props) => {
       }}
       className={
         !active 
-        ? "h-full px-4 text-slate-100 flex items-center hover:bg-slate-800"
-        : "h-full px-4 text-slate-100 flex items-center bg-slate-800"
+        ? "h-full px-4 text-slate-100 flex items-center hover:bg-slate-700"
+        : "h-full px-4 text-slate-100 flex items-center bg-slate-600"
       }
     >
       { title }

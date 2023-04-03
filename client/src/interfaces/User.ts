@@ -1,6 +1,6 @@
 export interface ReadUser {
   user: string;
   occupation: string;
-  image: string;
+  picture: string;
   birthDate: Date;
 }
