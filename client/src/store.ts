@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import authReducer from "./features/authSlice"
+import generalReducer from "./features/generalSlice"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    general: generalReducer
   },
   devTools: false
 })

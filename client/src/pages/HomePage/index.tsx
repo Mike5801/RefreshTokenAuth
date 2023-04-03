@@ -1,12 +1,21 @@
-import { useAppSelector } from '../../hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks'
+import { setUsers } from '../../features/generalSlice'
+import { getUsers } from '../../services/user'
+import { useEffect } from "react"
 
 type Props = {}
 
 const HomePage = (props: Props) => {
+  const dispatch = useAppDispatch()
+  
+  useEffect(() => {
+    getUsers()
+    .then((response) => {
+      dispatch(setUsers(response))
+    })
+  }, [])
+
   const user = useAppSelector((state) => state.auth.user)
-  const occupation = useAppSelector((state) => state.auth.occupation)
-  const picture = useAppSelector((state) => state.auth.picture)
-  const birthDate = useAppSelector((state) => state.auth.picture)
 
   return (
     <div>

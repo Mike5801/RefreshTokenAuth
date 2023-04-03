@@ -1,15 +1,14 @@
 import { authClient } from "../api/axios"
 import { ReadUser } from "../interfaces/User"
 
-export const getUsers = async (token: string) => {
+export const getUsers = async () => {
   try {
-    const response: Array<ReadUser> = await authClient({
+    const response = await authClient<Array<ReadUser>>({
       url: "users/user",
       method: "GET",
-      headers: { "Authorization": `Bearer ${token}` }
     })
 
-    return response
+    return response.data
 
   } catch (error) {
     console.log(error)
