@@ -12,6 +12,7 @@ import path from "path"
 
 /* ROUTE IMPORTS */
 import authRoutes from "./routes/authRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
 
 
 /*  INITIAL CONFIGURATION FOR MIDDLEWARES */
@@ -49,6 +50,7 @@ app.use(upload.single("image"))
 
 /* ROUTES CONFIGURATION */
 app.use("/auth", authRoutes)
+app.use("/users", userRoutes)
 
 /* RUN SERVER */
 const PORT = process.env.PORT || 5001
