@@ -4,7 +4,40 @@ import { useAppDispatch } from '../hooks/hooks'
 import { logOut } from '../features/authSlice'
 import { setUsers } from '../features/generalSlice'
 import { setToken } from "../features/authSlice"
-import { SessionResponse } from '../interfaces/Auth'
+import { SessionResponse, SignUp } from '../interfaces/Auth'
+
+export const useSignUpQuery = (data: SignUp) => {
+  const { user, password, occupation, email, image, birthDate } = data
+  const formData = new FormData()
+  
+  if (image) {
+    formData.append("image", image[0])
+  }
+
+  const birth = birthDate.toString()
+  
+  formData.append("user", user)
+  formData.append("password", password)
+  formData.append("occupation", occupation)
+  formData.append("email", email)
+  formData.append("birthDate", birth)
+
+  const signUp = async () => {
+    try {
+      await axiosPublic({
+        url: "auth/sign-up",
+        method: "POST",
+        data: formData,
+        headers: {"Content-Type": "multipart/form-data"}
+      })
+
+    } catch (error) {
+      return error
+    }
+  }
+
+  signUp()
+}
 
 export const useLogoutQuery = () => {
   const [error, setError] = useState<any>(undefined)
@@ -27,6 +60,7 @@ export const useLogoutQuery = () => {
 
   return logout
 }
+
 
 export const useRefreshTokenQuery = () => {
   const dispatch = useAppDispatch()

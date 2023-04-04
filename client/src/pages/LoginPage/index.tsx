@@ -6,10 +6,11 @@ import Button from '../../components/Button'
 import { signIn, signUp } from '../../services/session'
 import { SignIn, SignUp } from '../../interfaces/Auth'
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
+import { useAppDispatch } from '../../hooks/hooks'
 import { setToken, setUser } from '../../features/authSlice'
 import jwt_decode from "jwt-decode"
 import { ReadUser } from '../../interfaces/User'
+import { useSignUpQuery } from '../../services/sessionQueryHooks'
 
 
 interface FormInputs {
@@ -29,7 +30,6 @@ const LoginPage = (props: Props) => {
   const navigate = useNavigate()
   const methods = useForm<FormInputs>()
   const reset = methods.reset
-  const token = useAppSelector((state) => state.auth.token) as string
 
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const { user, password, email, birthDate, occupation, image } = data
@@ -59,8 +59,8 @@ const LoginPage = (props: Props) => {
       
     } else {
       try {
-        const response = await signUp(signUpData)
-        navigate("/")
+        useSignUpQuery(signUpData)
+        navigate("/home")
       } catch (err) {
         console.log(err)
       }

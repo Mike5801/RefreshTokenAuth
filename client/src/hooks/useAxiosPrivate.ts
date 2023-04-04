@@ -1,6 +1,5 @@
 import { axiosAuth } from "../api/axios";
 import { useEffect } from "react";
-// import useRefreshTokenQuery from "./useRefreshTokenQuery"
 import { useRefreshTokenQuery } from "../services/sessionQueryHooks";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "./hooks";

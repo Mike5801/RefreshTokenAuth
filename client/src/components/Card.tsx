@@ -13,7 +13,7 @@ const Card = (props: Props) => {
   return (
     <div className='w-[26rem] h-[65%] gap-6 flex flex-col items-center justify-center rounded-2xl p-8 border border-gray-500 bg-slate-600 shadow-2xl'> 
       <div className='rounded-full h-40 w-40 overflow-hidden border-4 border-slate-50'>
-        <img src={`${import.meta.env.VITE_BASE_URL}images/${picture}`} alt={`${user} profile picture`} />
+        <img className='object-cover object-top h-40 w-40' src={`${import.meta.env.VITE_BASE_URL}images/${picture}`} alt={`${user} profile picture`} />
       </div>
       <h1 className='text-xl font-bold text-slate-50'>{ user }</h1>
       <p className='text-md text-slate-50'>Occupation: { occupation }</p>
