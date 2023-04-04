@@ -1,11 +1,12 @@
 import { axiosAuth } from "../api/axios";
 import { useEffect } from "react";
-import useRefreshToken from "./useRefreshToken";
+// import useRefreshTokenQuery from "./useRefreshTokenQuery"
+import { useRefreshTokenQuery } from "../services/sessionQueryHooks";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "./hooks";
 
 const useAxiosPrivate = () => {
-  const refresh = useRefreshToken()
+  const refresh = useRefreshTokenQuery()
   const token = useAppSelector((state) => state.auth.token)
   const navigate = useNavigate()
 

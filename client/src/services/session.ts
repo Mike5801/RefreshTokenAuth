@@ -47,19 +47,3 @@ export const signIn = async (data: SignIn) => {
   }
 }
 
-export const getNewToken = async () => {
-  try {
-    const response = await axiosAuth<SessionResponse>({
-      url: "auth/refresh",
-      method: "GET",
-      withCredentials: true
-    })
-
-    return response.data
-
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-
