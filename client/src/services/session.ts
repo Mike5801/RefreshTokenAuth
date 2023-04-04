@@ -1,4 +1,4 @@
-import { publicClient, privateClient } from "../api/axios"
+import { axiosPublic, axiosAuth } from "../api/axios"
 import { SignIn, SignUp, SessionResponse } from "../interfaces/Auth"
 
 export const signUp = async (data: SignUp) => {
@@ -18,7 +18,7 @@ export const signUp = async (data: SignUp) => {
   formData.append("birthDate", birth)
   
   try {
-    const response = await publicClient({
+    const response = await axiosPublic({
       url: "auth/sign-up",
       method: "POST",
       data: formData,
@@ -34,10 +34,11 @@ export const signUp = async (data: SignUp) => {
 
 export const signIn = async (data: SignIn) => {
   try {
-    const response = await publicClient<SessionResponse>({
+    const response = await axiosPublic<SessionResponse>({
       url: "auth/sign-in",
       method: "POST",
-      data: data
+      data: data,
+      withCredentials: true
     })
 
     return response.data
@@ -48,9 +49,10 @@ export const signIn = async (data: SignIn) => {
 
 export const getNewToken = async () => {
   try {
-    const response = await privateClient<SessionResponse>({
+    const response = await axiosAuth<SessionResponse>({
       url: "auth/refresh",
-      method: "GET"
+      method: "GET",
+      withCredentials: true
     })
 
     return response.data

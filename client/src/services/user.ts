@@ -1,16 +1,29 @@
-import { authClient } from "../api/axios"
 import { ReadUser } from "../interfaces/User"
+import useAxiosPrivate from "../hooks/useAxiosPrivate"
+import { useEffect, useState } from "react"
 
-export const getUsers = async () => {
-  try {
-    const response = await authClient<Array<ReadUser>>({
-      url: "users/user",
-      method: "GET",
-    })
+export const useGetUsersQuery = () => {
+  const privateClient = useAxiosPrivate()
+  const [error, setError] = useState<any>(undefined)
+  const [data, setData] = useState<Array<ReadUser>>([])
 
-    return response.data
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await privateClient<Array<ReadUser>>({
+          url: "users/user",
+          method: "GET",
+        })
+    
+        setData(response.data)
+    
+      } catch (error) {
+        setError(error)
+      }
+    }
 
-  } catch (error) {
-    console.log(error)
-  }
+    getUsers()
+  }, [])
+
+  return { data, error }
 }

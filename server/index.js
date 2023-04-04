@@ -41,8 +41,8 @@ app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"))
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
 app.use(cors(corsOptions));
+app.use(cookieParser())
 
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 

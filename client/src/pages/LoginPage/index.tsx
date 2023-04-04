@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 import { signIn, signUp } from '../../services/session'
 import { SignIn, SignUp } from '../../interfaces/Auth'
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import { setToken, setUser } from '../../features/authSlice'
 import jwt_decode from "jwt-decode"
 import { ReadUser } from '../../interfaces/User'
@@ -30,6 +30,7 @@ const LoginPage = (props: Props) => {
   const methods = useForm<FormInputs>()
   const reset = methods.reset
   const token = useAppSelector((state) => state.auth.token) as string
+
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const { user, password, email, birthDate, occupation, image } = data
     const signInData: SignIn = {
@@ -48,23 +49,18 @@ const LoginPage = (props: Props) => {
     if (isSignIn) {
       try {
         const response = await signIn(signInData)
+        const userInfo: ReadUser = await jwt_decode(response?.token as string)
         dispatch(setToken(response?.token))
-        const userInfo: ReadUser = jwt_decode(token)
         dispatch(setUser(userInfo))
-        console.log(userInfo)
-        console.log(userInfo.birthDate)
-
         navigate("/home")
-
       } catch (err) {
         console.log(err)
       }
       
     } else {
       try {
-        const response = await signUp(signUpData)  
-        console.log(response)
-
+        const response = await signUp(signUpData)
+        navigate("/")
       } catch (err) {
         console.log(err)
       }

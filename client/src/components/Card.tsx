@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { useAppSelector } from '../hooks' 
+import { useAppSelector } from '../hooks/hooks' 
 
 type Props = {}
 

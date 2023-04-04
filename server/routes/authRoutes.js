@@ -7,6 +7,6 @@ router.post("/sign-up", signUp)
 
 router.post("/sign-in", signIn)
 
-router.post("/refresh", getToken)
+router.get("/refresh", getToken)
 
 export default router

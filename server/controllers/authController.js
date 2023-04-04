@@ -51,8 +51,8 @@ export const signIn = async (req, res) => {
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
-      sameSite: "None",
       secure: true,
+      sameSite: "None",
       maxAge: 24 * 60 * 60 * 1000
     })
 
@@ -66,24 +66,18 @@ export const getToken = async (req, res) => {
   try {
     const refreshToken = req.cookies?.jwt
     
-    const newAccessToken = jwt.verify(refreshToken, process.env.JWT_REFRESH,
-      async (err, decoded) => {
-        if (err) return res.status(401).json({ message: "Unauthorized" })
+    const decode = jwt.verify(refreshToken, process.env.JWT_REFRESH)
 
-        const { id } = decoded
+    const { id } = decode
 
-        const user = await User.findById(id)
+    const user = await User.findById(id)
 
-        const accessToken = jwt.sign({
-          user: user.user,
-          occupation: user.occupation,
-          picture: user.picture,
-          birthDate: user.birthDate
-        }, process.env.JWT_SECRET, { expiresIn: "10m" })
-
-        return accessToken
-      }  
-    )
+    const newAccessToken = jwt.sign({
+      user: user.user,
+      occupation: user.occupation,
+      picture: user.picture,
+      birthDate: user.birthDate
+    }, process.env.JWT_SECRET, { expiresIn: "10m" })
 
     res.status(200).json({ token: newAccessToken })
 

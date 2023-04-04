@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 import { ReadUser } from '../interfaces/User';
 
-interface Session {
+export interface Session {
   user?: string;
   token?: string;
   occupation?: string;

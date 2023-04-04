@@ -3,12 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 import { ReadUser } from '../interfaces/User';
 
-interface Session {
-  users?: Array<ReadUser>
+export interface General {
+  users?: Array<ReadUser>,
 }
 
-const initialState: Session = {
-  users: undefined
+const initialState: General = {
+  users: []
 }
 
 export const generalSlice = createSlice({
