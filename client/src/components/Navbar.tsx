@@ -10,12 +10,12 @@ const Navbar = (props: Props) => {
   return (
     <div className='w-full h-14 px-5 flex items-center bg-slate-800'>
       <div className='w-full h-full flex'>
-        <NavbarItem title='Home' navigation='/home' hasOnClick={ false }/>
-        <NavbarItem title='My Profile' navigation='/my-profile' hasOnClick={ false }/>
-        <NavbarItem title='All Users' navigation='/all-users' hasOnClick={ false }/>
+        <NavbarItem title='Home' navigation='/home' isLogout={ false }/>
+        <NavbarItem title='My Profile' navigation='/my-profile' isLogout={ false }/>
+        <NavbarItem title='All Users' navigation='/all-users' isLogout={ false }/>
       </div>
       <div className='w-full h-full flex justify-end'>
-        <NavbarItem title='Logout' navigation='/' hasOnClick={ true }/>
+        <NavbarItem title='Logout' navigation='/' isLogout={ true }/>
       </div>
     </div>
   )

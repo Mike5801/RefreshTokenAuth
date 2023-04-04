@@ -3,8 +3,10 @@ import { axiosAuth, axiosPublic } from '../api/axios'
 import { useAppDispatch } from '../hooks/hooks'
 import { logOut } from '../features/authSlice'
 import { setUsers } from '../features/generalSlice'
-import { setToken } from "../features/authSlice"
-import { SessionResponse, SignUp } from '../interfaces/Auth'
+import { setToken, setUser } from "../features/authSlice"
+import { SessionResponse, SignIn, SignUp } from '../interfaces/Auth'
+import jwt_decode from "jwt-decode"
+import { ReadUser } from '../interfaces/User'
 
 export const useSignUpQuery = (data: SignUp) => {
   const { user, password, occupation, email, image, birthDate } = data
@@ -39,6 +41,33 @@ export const useSignUpQuery = (data: SignUp) => {
   signUp()
 }
 
+export const useSignInQuery = () => {
+  const dispatch = useAppDispatch()
+  
+  const signIn = async (resData: SignIn) => {
+    try {
+      const response = await axiosPublic<SessionResponse>({
+        url: "auth/sign-in",
+        method: "POST",
+        data: resData,
+        withCredentials: true
+      })
+      
+      dispatch(setToken(response.data.token))
+
+      const userInfo: ReadUser = jwt_decode(response.data.token)
+      
+      dispatch(setUser(userInfo))
+
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  }
+
+  return signIn
+
+}
+
 export const useLogoutQuery = () => {
   const [error, setError] = useState<any>(undefined)
   const dispatch = useAppDispatch()
@@ -60,7 +89,6 @@ export const useLogoutQuery = () => {
 
   return logout
 }
-
 
 export const useRefreshTokenQuery = () => {
   const dispatch = useAppDispatch()

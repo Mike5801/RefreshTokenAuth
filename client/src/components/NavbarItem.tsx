@@ -7,17 +7,17 @@ import { useLogoutQuery } from '../services/sessionQueryHooks'
 type Props = {
   title: string,
   navigation: string,
-  hasOnClick: boolean
+  isLogout: boolean
 }
 
-const NavbarItem = ({ title, navigation, hasOnClick } : Props) => {
+const NavbarItem = ({ title, navigation, isLogout } : Props) => {
   const navigate = useNavigate()
   const logout = useLogoutQuery()
 
   const active = navigation === window.location.pathname
 
   const onClickHandler = async () => {
-    if (!hasOnClick) return navigate(navigation)
+    if (!isLogout) return navigate(navigation)
     
     await logout()
     navigate(navigation)

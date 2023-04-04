@@ -3,14 +3,9 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form"
 import AuthLogo from "../../assets/auth.png"
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-import { signIn, signUp } from '../../services/session'
 import { SignIn, SignUp } from '../../interfaces/Auth'
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch } from '../../hooks/hooks'
-import { setToken, setUser } from '../../features/authSlice'
-import jwt_decode from "jwt-decode"
-import { ReadUser } from '../../interfaces/User'
-import { useSignUpQuery } from '../../services/sessionQueryHooks'
+import { useSignUpQuery, useSignInQuery } from '../../services/sessionQueryHooks'
 
 
 interface FormInputs {
@@ -26,7 +21,7 @@ type Props = {}
 
 const LoginPage = (props: Props) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true)
-  const dispatch = useAppDispatch()
+  const signIn = useSignInQuery()
   const navigate = useNavigate()
   const methods = useForm<FormInputs>()
   const reset = methods.reset
@@ -48,10 +43,7 @@ const LoginPage = (props: Props) => {
     
     if (isSignIn) {
       try {
-        const response = await signIn(signInData)
-        const userInfo: ReadUser = await jwt_decode(response?.token as string)
-        dispatch(setToken(response?.token))
-        dispatch(setUser(userInfo))
+        await signIn(signInData)
         navigate("/home")
       } catch (err) {
         console.log(err)
