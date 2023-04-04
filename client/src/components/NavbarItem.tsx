@@ -1,21 +1,32 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLogoutQuery } from '../services/sessionQueryHooks'
+
 
 
 type Props = {
   title: string,
   navigation: string,
+  hasOnClick: boolean
 }
 
-const NavbarItem = ({ title, navigation } : Props) => {
+const NavbarItem = ({ title, navigation, hasOnClick } : Props) => {
   const navigate = useNavigate()
+  const logout = useLogoutQuery()
 
   const active = navigation === window.location.pathname
+
+  const onClickHandler = async () => {
+    if (!hasOnClick) return navigate(navigation)
+    
+    await logout()
+    navigate(navigation)
+  }
 
   return (
     <button
       onClick={() => {
-        navigate(navigation)
+        onClickHandler()
       }}
       className={
         !active 

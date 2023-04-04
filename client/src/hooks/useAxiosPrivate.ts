@@ -1,11 +1,13 @@
 import { axiosAuth } from "../api/axios";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "./hooks";
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshToken()
   const token = useAppSelector((state) => state.auth.token)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const requestIntercept = axiosAuth.interceptors.request.use(
@@ -28,6 +30,7 @@ const useAxiosPrivate = () => {
           prevReq.headers["Authorization"] = `Bearer ${newAccessToken}`
           return axiosAuth(prevReq)
         }
+        navigate("/")
         return Promise.reject(err)
       }
     )

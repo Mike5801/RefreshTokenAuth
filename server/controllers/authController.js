@@ -62,6 +62,16 @@ export const signIn = async (req, res) => {
   }
 }
 
+export const logout = async (req, res) => {
+  const refreshToken = req.cookies?.jwt
+
+  if (!refreshToken) return res.status(200).json({ message: "logout successfully" })
+
+  res.clearCookie("jwt", { httpOnly: true, secure: true, sameStie: "None" })
+
+  res.status(200).json({ message: "logout successfully" })
+}
+
 export const getToken = async (req, res) => {
   try {
     const refreshToken = req.cookies?.jwt

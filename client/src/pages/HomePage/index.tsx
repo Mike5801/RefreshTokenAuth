@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
 import { setUsers } from '../../features/generalSlice'
-import { useGetUsersQuery } from '../../services/user'
+import { useGetUsersQuery } from '../../services/userQueryHooks'
 import { useEffect } from 'react'
 
 type Props = {}
@@ -12,7 +12,6 @@ const HomePage = (props: Props) => {
 
   useEffect(() => {
     dispatch(setUsers(data))
-    console.log(data)
   }, [data])
   
   const user = useAppSelector((state) => state.auth.user)
