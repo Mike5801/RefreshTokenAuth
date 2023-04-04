@@ -21,6 +21,7 @@ type Props = {}
 
 const LoginPage = (props: Props) => {
   const [isSignIn, setIsSignIn] = useState<boolean>(true)
+  const signUp = useSignUpQuery()
   const signIn = useSignInQuery()
   const navigate = useNavigate()
   const methods = useForm<FormInputs>()
@@ -51,7 +52,7 @@ const LoginPage = (props: Props) => {
       
     } else {
       try {
-        useSignUpQuery(signUpData)
+        signUp(signUpData)
         navigate("/home")
       } catch (err) {
         console.log(err)

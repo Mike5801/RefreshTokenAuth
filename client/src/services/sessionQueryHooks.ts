@@ -8,23 +8,25 @@ import { SessionResponse, SignIn, SignUp } from '../interfaces/Auth'
 import jwt_decode from "jwt-decode"
 import { ReadUser } from '../interfaces/User'
 
-export const useSignUpQuery = (data: SignUp) => {
-  const { user, password, occupation, email, image, birthDate } = data
-  const formData = new FormData()
-  
-  if (image) {
-    formData.append("image", image[0])
-  }
+export const useSignUpQuery = () => {
 
-  const birth = birthDate.toString()
-  
-  formData.append("user", user)
-  formData.append("password", password)
-  formData.append("occupation", occupation)
-  formData.append("email", email)
-  formData.append("birthDate", birth)
+  const signUp = async (data: SignUp) => {
 
-  const signUp = async () => {
+    const { user, password, occupation, email, image, birthDate } = data
+    const formData = new FormData()
+    
+    if (image) {
+      formData.append("image", image[0])
+    }
+  
+    const birth = birthDate.toString()
+    
+    formData.append("user", user)
+    formData.append("password", password)
+    formData.append("occupation", occupation)
+    formData.append("email", email)
+    formData.append("birthDate", birth)
+
     try {
       await axiosPublic({
         url: "auth/sign-up",
@@ -34,11 +36,11 @@ export const useSignUpQuery = (data: SignUp) => {
       })
 
     } catch (error) {
-      return error
+      return Promise.reject(error)
     }
   }
 
-  signUp()
+  return signUp
 }
 
 export const useSignInQuery = () => {
