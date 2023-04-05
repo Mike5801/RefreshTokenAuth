@@ -11,7 +11,7 @@ type Props = {
 const DataGrid = ({ users }: Props) => {
 
   return (
-    <div className='w-full h-full flex flex-col bg-slate-600 rounded-lg overflow-hidden overflow-y-auto overflow-x-auto'>
+    <div className='w-full h-full flex flex-col bg-slate-600 rounded-lg border border-gray-600 shadow-lg overflow-hidden overflow-y-auto overflow-x-auto'>
       {/* Data grid headers */}
       <div className='w-full h-12 flex justify-between items-center bg-slate-800 text-white'>
         <DataGridHeader title='Profile Picture'/>
@@ -29,7 +29,6 @@ const DataGrid = ({ users }: Props) => {
           : (<h1>No hay usuarios</h1>) 
         : (<h1>Cargando...</h1>)
       }
-
     </div>
   )
 }
