@@ -1,5 +1,3 @@
-import React from 'react'
-import { useAppSelector } from '../../hooks/reduxHooks' 
 import { ReadUser } from '../../interfaces/User' 
 import DataGridHeader from './DataGridHeader'
 import DataGridElement from './DataGridElement'
@@ -26,8 +24,8 @@ const DataGrid = ({ users }: Props) => {
           ? users.map((user, id) => (
             <DataGridElement key={id} user={user} />
           ))
-          : (<h1>No hay usuarios</h1>) 
-        : (<h1>Cargando...</h1>)
+          : (<h1 className='text-white text-xl'>There are no users</h1>) 
+        : (<h1 className='text-white text-xl'>Loading...</h1>)
       }
     </div>
   )

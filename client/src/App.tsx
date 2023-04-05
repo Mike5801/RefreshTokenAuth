@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import MyProfile from "./pages/MyProfile"
 import AllUsers from "./pages/AllUsers"
+import PersistLogin from "./components/PersistLogin"
 
 function App() {
   const token = useAppSelector((state) => state.auth.token)
@@ -14,11 +15,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={ <LoginPage /> } />
-          <Route element={ token ? <Layout /> : <Navigate to="/" /> } >
-            <Route path="/home"  element={ <HomePage /> } />
-            <Route path="/my-profile"  element={ <MyProfile /> } />
-            <Route path="/all-users" element={ <AllUsers /> } />
-          </Route>
+            <Route element={ <PersistLogin /> }>
+              <Route element={ token ? <Layout /> : <Navigate to="/" /> } >
+                <Route path="/home" element={ <HomePage /> } />
+                <Route path="/my-profile"  element={ <MyProfile /> } />
+                <Route path="/all-users" element={ <AllUsers /> } />
+              </Route>
+            </Route>
         </Routes>
       </BrowserRouter>
     </div>

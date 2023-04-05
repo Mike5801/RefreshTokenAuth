@@ -67,7 +67,7 @@ export const logout = async (req, res) => {
 
   if (!refreshToken) return res.status(200).json({ message: "logout successfully" })
 
-  res.clearCookie("jwt", { httpOnly: true, secure: true, sameStie: "None" })
+  res.clearCookie("jwt", { httpOnly: true, secure: true, sameSite: "None" })
 
   res.status(200).json({ message: "logout successfully" })
 }

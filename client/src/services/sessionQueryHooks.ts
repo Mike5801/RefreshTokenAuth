@@ -7,6 +7,7 @@ import { setToken, setUser } from "../features/authSlice"
 import { SessionResponse, SignIn, SignUp } from '../interfaces/Auth'
 import jwt_decode from "jwt-decode"
 import { ReadUser } from '../interfaces/User'
+import useUser from '../hooks/useUser'
 
 export const useSignUpQuery = () => {
 
@@ -45,6 +46,7 @@ export const useSignUpQuery = () => {
 
 export const useSignInQuery = () => {
   const dispatch = useAppDispatch()
+  const user = useUser()
   
   const signIn = async (resData: SignIn) => {
     try {
@@ -57,9 +59,7 @@ export const useSignInQuery = () => {
       
       dispatch(setToken(response.data.token))
 
-      const userInfo: ReadUser = jwt_decode(response.data.token)
-      
-      dispatch(setUser(userInfo))
+      user(response.data.token)
 
     } catch (err) {
       return Promise.reject(err)
@@ -77,7 +77,7 @@ export const useLogoutQuery = () => {
   const logout = async () => {
     try {
       await axiosPublic({
-        url: "auth/refresh",
+        url: "auth/logout",
         method: "GET",
         withCredentials: true
       })
