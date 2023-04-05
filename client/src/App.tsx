@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Layout from "./components/Layout"
-import { useAppSelector } from "./hooks/hooks"
+import { useAppSelector } from "./hooks/reduxHooks"
 import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import MyProfile from "./pages/MyProfile"

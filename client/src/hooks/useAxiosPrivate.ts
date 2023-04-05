@@ -2,7 +2,7 @@ import { axiosAuth } from "../api/axios";
 import { useEffect } from "react";
 import { useRefreshTokenQuery } from "../services/sessionQueryHooks";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "./hooks";
+import { useAppSelector } from "./reduxHooks";
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshTokenQuery()

@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks'
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import { setUsers } from '../../features/generalSlice'
 import { useGetUsersQuery } from '../../services/userQueryHooks'
 import { useEffect } from 'react'

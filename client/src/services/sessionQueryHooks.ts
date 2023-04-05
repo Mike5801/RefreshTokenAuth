@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { axiosAuth, axiosPublic } from '../api/axios'
-import { useAppDispatch } from '../hooks/hooks'
+import { useAppDispatch } from '../hooks/reduxHooks'
 import { logOut } from '../features/authSlice'
 import { setUsers } from '../features/generalSlice'
 import { setToken, setUser } from "../features/authSlice"

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useLogoutQuery } from '../services/sessionQueryHooks'
+import { useLogoutQuery } from '../../services/sessionQueryHooks' 
 
 
 
