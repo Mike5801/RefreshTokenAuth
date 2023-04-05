@@ -24,7 +24,7 @@ const DataGrid = ({ users }: Props) => {
       { users?.length 
         ? users.length > 0 
           ? users.map((user, id) => (
-            <DataGridElement user={user} />
+            <DataGridElement key={id} user={user} />
           ))
           : (<h1>No hay usuarios</h1>) 
         : (<h1>Cargando...</h1>)
