@@ -12,10 +12,10 @@ const DataGridElement = ({ user }: Props) => {
     <div className='flex w-full h-14 last:border-b-0 border-b border-gray-400 odd:bg-slate-500 text-white text-sm'>
       <div className="flex items-center justify-center h-full w-full">
         <div className='rounded-full h-10 w-10 overflow-hidden border-2 border-slate-50'>
-          <img src={`${import.meta.env.VITE_BASE_URL}images/${user.picture}`} alt={`${user} profile picture`} />
+          <img className='object-cover object-top h-10 w-10' src={`${import.meta.env.VITE_BASE_URL}images/${user.picture}`} alt={`${user} profile picture`} />
         </div>
       </div>
-      <div className="flex col-span-1 items-center justify-center h-full w-full">
+      <div className="flex items-center justify-center h-full w-full">
         { user.user }
       </div>
       <div className="flex items-center justify-center h-full w-full">

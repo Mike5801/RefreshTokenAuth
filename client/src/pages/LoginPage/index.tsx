@@ -78,7 +78,7 @@ const LoginPage = (props: Props) => {
             {!isSignIn && <Input type='text' label='Occupation' placeholder='Software Engineer' name="occupation" required={false}/>}
             {!isSignIn && <Input type='date' label='Birth of Date' placeholder='' name="birthDate" required={false}/>}
             {!isSignIn && <Input type='file' label='Profile picture' placeholder='' name="image" required={false}/>}
-            <Checkbox label='Persist your login?' persist={ persist } name="persist"/>
+            {isSignIn && <Checkbox label='Persist your login?' persist={ persist } name="persist"/>}
             <Button text={ isSignIn ? "Sign In" : "Sign Up" }/>
             <button 
               className={`${ isSignIn ? "bg-slate-800 text-white py-[0.1rem] pointer-events-none" : "bg-slate-50 hover:bg-slate-200" } transition-all duration-100 ease-in absolute top-0 right-1/2 text-sm rounded-bl-md rounded-br-md px-2`}
