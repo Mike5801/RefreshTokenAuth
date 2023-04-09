@@ -11,7 +11,7 @@ const Card = (props: Props) => {
   const date = birthDate?.toString().split("T")[0].replaceAll("-", "/")
 
   return (
-    <div className='w-[26rem] h-5/6 gap-6 flex flex-col items-center justify-center rounded-2xl p-8 border border-gray-500 bg-slate-600 shadow-2xl'> 
+    <div className='w-full h-full gap-6 flex flex-col items-center justify-center rounded-2xl p-8 border border-gray-500 bg-slate-600 shadow-2xl'> 
       <div className='rounded-full h-40 w-40 overflow-hidden border-4 border-slate-50'>
         <img className='object-cover object-top h-40 w-40' src={`${import.meta.env.VITE_BASE_URL}images/${picture}`} alt={`${user} profile picture`} />
       </div>

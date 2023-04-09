@@ -11,8 +11,8 @@ const DataGrid = ({ users }: Props) => {
   return (
     users?.length 
       ? 
-        <div className='w-full h-5/6 flex flex-col bg-slate-600 rounded-lg border border-gray-600 shadow-lg overflow-hidden overflow-y-auto'>
-          <table>
+        <div className='w-full h-full flex flex-col bg-slate-600 rounded-lg border border-gray-600 shadow-lg overflow-hidden overflow-y-auto'>
+          <table className='w-full h-full '>
             {/* Data grid headers */}
             <thead>
               <tr className='bg-slate-800 h-12 text-lg text-white sticky top-0'>

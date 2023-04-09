@@ -7,7 +7,7 @@ type Props = {}
 
 const Layout = (props: Props) => {
   return (
-    <div className='w-full h-full flex flex-col bg-gray-700 items-center' >
+    <div className='w-full h-full flex flex-col bg-gray-700' >
       <Navbar />
       <Outlet />
     </div>

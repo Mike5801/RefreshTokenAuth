@@ -8,8 +8,10 @@ function MyProfile({}: Props) {
   
   
   return (
-    <div className='w-full h-full flex justify-center items-center'>
-      <Card />
+    <div className='box-border w-full h-full flex justify-center items-center overflow-hidden'>
+      <div className='w-[30rem] h-[80%]'>
+        <Card />
+      </div>
     </div>
   )
 }
