@@ -11,9 +11,9 @@ const HomePage = (props: Props) => {
   const users = useUsers()
   
   return (
-    <div className='w-full h-full p-10 flex flex-col gap-10'>
+    <div className='w-full h-full flex flex-col gap-10'>
       <h1 className='text-4xl text-white'>Welcome back, { user }</h1>
-      <div className='w-full h-[33rem] flex gap-10'>
+      <div className='w-full h-[80%] flex gap-10'>
         <Card />
         <DataGrid users={ users }/>
       </div>

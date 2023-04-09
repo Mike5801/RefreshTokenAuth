@@ -11,20 +11,18 @@ function App() {
   const token = useAppSelector((state) => state.auth.token)
 
   return (
-    <div className="App w-full h-full">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={ <LoginPage /> } />
-            <Route element={ <PersistLogin /> }>
-              <Route element={ token ? <Layout /> : <Navigate to="/" /> } >
-                <Route path="/home" element={ <HomePage /> } />
-                <Route path="/my-profile"  element={ <MyProfile /> } />
-                <Route path="/all-users" element={ <AllUsers /> } />
-              </Route>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ <LoginPage /> } />
+          <Route element={ <PersistLogin /> }>
+            <Route element={ token ? <Layout /> : <Navigate to="/" /> } >
+              <Route path="/home" element={ <HomePage /> } />
+              <Route path="/my-profile"  element={ <MyProfile /> } />
+              <Route path="/all-users" element={ <AllUsers /> } />
             </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+          </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

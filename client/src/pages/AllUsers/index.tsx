@@ -10,7 +10,7 @@ const AllUsers = (props: Props) => {
   const users: Array<ReadUser> | undefined = useUsers()
   
   return (
-    <div className='w-full h-full px-10 py-10 '>
+    <div className='flex w-full h-full items-center px-14'>
       <DataGrid users={ users }/>
     </div>
   )

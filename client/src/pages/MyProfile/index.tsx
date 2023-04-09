@@ -8,7 +8,7 @@ function MyProfile({}: Props) {
   
   
   return (
-    <div className='w-full h-full flex justify-center items-center p-10'>
+    <div className='w-full h-full flex justify-center items-center'>
       <Card />
     </div>
   )
